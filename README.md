@@ -6,7 +6,7 @@ To build it you need 2 ESP32 dev models, 2 ILI9341 240*320 screens, 2 buttons,an
 
 Assembly
 ---
-Connect them as the following:
+Connect the parts as the following:
 
 Coding
 ---
@@ -28,6 +28,6 @@ How to use
 ---
 1. Boot up, calibrate the screen following the instructions: try to touch the edges of the display untill the min coordinations of X/Y doesn't change anymore,then press the button once. Do the same thing untill the max coordinations of X/Y doesn't change anymore. When done, press the button once again.
 
-2.Now you are free to draw.In order to clear the screen, press the button once.
+2. Now you are free to draw. In order to clear the screen, press the button once.
 
 # Troubleshooting
