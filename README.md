@@ -9,7 +9,9 @@ Assembly
 ---
 Connect the parts as the following:
 ![assembly](https://github.com/user-attachments/assets/04051e12-6a90-44eb-b16c-9f83270e921d)
+
 Or you can follow the code
+
 xml
 ```
 /*Connections
