@@ -14,9 +14,9 @@ Coding
 
 2. Replace the following part with THE OTHER BOARD's mac address
 ```xml
-    const uint8_t PROGMEM broadcastAddress[] = {0xyour,0xmac,0xaddress,0x,0x,0x};
+    if your mac address is 1C:69:20:1C:18:98
 ```
-It should be something like this:
+Then the code should be something like this:
 ```xml
     const uint8_t PROGMEM broadcastAddress[] = {0x1C,0x69,0x20,0x1C,0x18,0x98};
 ```
