@@ -27,6 +27,7 @@ Note:If you do not know the mac address of your boards, you can obtain it by sca
 How to use
 ---
 1. Boot up, calibrate the screen following the instructions: try to touch the edges of the display untill the min coordinations of X/Y doesn't change anymore,then press the button once. Do the same thing untill the max coordinations of X/Y doesn't change anymore. When done, press the button once again.
+
 2.Now you are free to draw.In order to clear the screen, press the button once.
 
 # Troubleshooting
