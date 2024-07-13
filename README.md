@@ -1,3 +1,4 @@
+
 # Getting started
 
 Preparations
@@ -7,6 +8,25 @@ To build it you need 2 ESP32 dev models, 2 ILI9341 240*320 screens, 2 buttons,an
 Assembly
 ---
 Connect the parts as the following:
+![assembly](https://github.com/user-attachments/assets/04051e12-6a90-44eb-b16c-9f83270e921d)
+Or you can follow the code
+xml
+```
+/*Connections
+  T_IRQ->16
+  T_DO->D19
+  T_DIN->D23
+  T_CS->D5
+  T_CLK->D18
+  MISO->No connection
+  LED->3V3
+  SCK->D18
+  MOSI->D23
+  DC->D2
+  RESET->D4
+  CS->D15
+*/
+```
 
 Coding
 ---
