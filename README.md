@@ -1,3 +1,5 @@
+# Project Overview
+Bilibili:https://www.bilibili.com/video/BV1m7bMevEQW/?vd_source=c7c9f8b655a74cd44e121d2e52ed5ba5
 
 # Getting started
 
@@ -12,8 +14,7 @@ Connect the parts as the following:
 
 Or you can follow the code
 
-xml
-```
+```xml
 /*Connections
   T_IRQ->16
   T_DO->D19
