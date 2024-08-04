@@ -4,8 +4,8 @@
 #include <esp_now.h>
 #include <WiFi.h>
 
-const uint8_t PROGMEM broadcastAddress[] = {0x1C,0x69,0x20,0x2C,0x18,0x98};//刷入小按钮设备的大按钮MAC
-//const uint8_t PROGMEM broadcastAddress[] = {0x08,0xD1,0xF9,0xE7,0x0C,0xF8};//刷入大按钮设备的小按钮MAC
+const uint8_t PROGMEM broadcastAddress[] = {0x1C,0x69,0x20,0x2C,0x18,0x98};//Replace the mac with the OTHER board's mac address e.g programming for board #1, input board #2's mac.Vice versa
+
 
 TaskHandle_t Task0;
 TaskHandle_t Task1;
