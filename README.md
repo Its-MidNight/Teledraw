@@ -11,7 +11,45 @@ Caution:The version of ESP32 SDK for Arduino `must be 2.0.x`,such as 2.0.17, 3.x
 
 Configuration of TFT_eSPI
 ---
-Edit `User_setup.h`, the default directory of the file is C:\\Users\\`USERNAME`\\Documents\\Arduino\\libraries\\TFT_eSPI\\User_setup.h
+Edit `User_Setup.h`, the default directory of the file is 
+C:\\Users\\`USERNAME`\\Documents\\Arduino\\libraries\\TFT_eSPI\\User_Setup.h
+
+Uncomment here in line 49, change it to the following statements:
+
+```xml
+#define ILI9341_DRIVER       // Generic driver for common displays
+```
+
+Uncomment here from line 209 to line 218, change it to the following statements:
+
+```xml
+// For ESP32 Dev board (only tested with ILI9341 display)
+// The hardware SPI can be mapped to any pins
+
+#define TFT_MISO 19
+#define TFT_MOSI 23
+#define TFT_SCLK 18
+#define TFT_CS   15  // Chip select control pin
+#define TFT_DC    2  // Data Command control pin
+#define TFT_RST   4  // Reset pin (could connect to RST pin)
+//#define TFT_RST  -1  // Set TFT_RST to -1 if display RESET is connected to ESP32 board RST
+```
+
+Comment here from line 169 to line 177, change it to the following statements:
+
+```xml
+// For NodeMCU - use pin numbers in the form PIN_Dx where Dx is the NodeMCU pin designation
+//#define TFT_MISO  PIN_D6  // Automatically assigned with ESP8266 if not defined
+//#define TFT_MOSI  PIN_D7  // Automatically assigned with ESP8266 if not defined
+//#define TFT_SCLK  PIN_D5  // Automatically assigned with ESP8266 if not defined
+
+//#define TFT_CS    PIN_D8  // Chip select control pin D8
+//#define TFT_DC    PIN_D3  // Data Command control pin
+//#define TFT_RST   PIN_D4  // Reset pin (could connect to NodeMCU RST, see next line)
+//#define TFT_RST  -1     // Set TFT_RST to -1 if the display RESET is connected to NodeMCU RST or 3.3V
+```
+
+Or you can download the `User_Setup.h` from the repository and replace yours in the directory.
 
 Assembly
 ---
