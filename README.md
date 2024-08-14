@@ -7,7 +7,11 @@ Preparations
 ---
 To build it you need 2 ESP32 dev models, 2 ILI9341 240*320 screens, 2 buttons,and multiple wires. (Breadboards are recommended)
 
-Caution:The version of ESP32 SDK for Arduino must be 2.0.x,such as 2.0.17,3.x will cause error when compiling 
+Caution:The version of ESP32 SDK for Arduino `must be 2.0.x`,such as 2.0.17, 3.x will `cause error` when compiling.
+
+Configuration of TFT_eSPI
+---
+Edit 'User_setup.h', the default directory of the file is C:\\Users\\'Your username'\\Documents\\Arduino\\libraries\\TFT_eSPI\\User_setup.h
 
 Assembly
 ---
