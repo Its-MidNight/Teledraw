@@ -6,6 +6,7 @@ Bilibili:https://www.bilibili.com/video/BV1m7bMevEQW/?vd_source=c7c9f8b655a74cd4
 Preparations
 ---
 To build it you need 2 ESP32 dev models, 2 ILI9341 240*320 screens, 2 buttons,and multiple wires. (Breadboards are recommended)
+
 Caution:The version of ESP32 SDK for Arduino must be 2.0.x,such as 2.0.17,3.x will cause error when compiling 
 
 Assembly
