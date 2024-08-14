@@ -11,7 +11,7 @@ Caution:The version of ESP32 SDK for Arduino `must be 2.0.x`,such as 2.0.17, 3.x
 
 Configuration of TFT_eSPI
 ---
-Edit 'User_setup.h', the default directory of the file is C:\\Users\\'Your username'\\Documents\\Arduino\\libraries\\TFT_eSPI\\User_setup.h
+Edit `User_setup.h`, the default directory of the file is C:\\Users\\`USERNAME`\\Documents\\Arduino\\libraries\\TFT_eSPI\\User_setup.h
 
 Assembly
 ---
