@@ -49,7 +49,7 @@ Comment here from line 169 to line 177, change it to the following statements:
 //#define TFT_RST  -1     // Set TFT_RST to -1 if the display RESET is connected to NodeMCU RST or 3.3V
 ```
 
-Or you can download the `User_Setup.h` from the repository and replace yours in the directory.
+Or you can download the `User_Setup.h` from the repository and replace yours.
 
 Assembly
 ---
