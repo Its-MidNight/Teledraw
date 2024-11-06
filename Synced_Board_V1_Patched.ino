@@ -4,8 +4,8 @@
 #include <esp_now.h>
 #include <WiFi.h>
 
-//const uint8_t PROGMEM broadcastAddress[] = {0x08,0xD1,0xF9,0xEC,0x4C,0x8C};
-const uint8_t PROGMEM broadcastAddress[] = {0x08,0xD1,0xF9,0xE7,0x0C,0xF8};
+//const uint8_t PROGMEM broadcastAddress[] = {0x00,0x00,0x00,0x00,0x00,0x00};
+const uint8_t PROGMEM broadcastAddress[] = {0x00,0x00,0x00,0x00,0x00,0x00};//Target device's MAC Address, replace it with yours
 
 TaskHandle_t Task0;
 TaskHandle_t Task1;
@@ -215,7 +215,8 @@ void Task1code(void * pvParameters){
         esp_now_send(broadcastAddress, (uint8_t *) &clearScreen, 8);
         tft.fillScreen(TFT_BLACK);
         pressed=1;
-      }else pressed=0;
+      }
+      if(digitalRead(BUTTON))pressed=0;
     }
   }
 }
