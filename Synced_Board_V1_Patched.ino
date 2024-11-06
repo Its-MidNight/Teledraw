@@ -4,8 +4,8 @@
 #include <esp_now.h>
 #include <WiFi.h>
 
-const uint8_t PROGMEM broadcastAddress[] = {0x1C,0x69,0x20,0x2C,0x18,0x98};//Replace the mac with the OTHER board's mac address e.g programming for board #1, input board #2's mac.Vice versa
-
+//const uint8_t PROGMEM broadcastAddress[] = {0x08,0xD1,0xF9,0xEC,0x4C,0x8C};
+const uint8_t PROGMEM broadcastAddress[] = {0x08,0xD1,0xF9,0xE7,0x0C,0xF8};
 
 TaskHandle_t Task0;
 TaskHandle_t Task1;
@@ -80,7 +80,7 @@ void touchCalibrate(int16_t (*calibP)[4], int confirmPin){
   tft.print("    ");
   tft.setCursor(tft.width()/2+5,tft.height()/2-25);
   tft.printf("    ");
-  while(!digitalRead(confirmPin))vTaskDelay(1);;
+  while(!digitalRead(confirmPin))vTaskDelay(1);
 
   tft.drawCentreString("XMAX:",tft.width()/2-15,tft.height()/2-15,2);
   tft.drawCentreString("YMAX:",tft.width()/2-15,tft.height()/2-30,2);
@@ -99,22 +99,16 @@ void touchCalibrate(int16_t (*calibP)[4], int confirmPin){
   calibrated=1;
 }
 
-void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
-  Serial.print("\r\nLast Packet Send Status:\t");
-  Serial.println(status == ESP_NOW_SEND_SUCCESS ? "Delivery Success" : "Delivery Fail");
-  if (status ==0){
-    //Serial.println("Delivery Success :)");
-  }
-  else{
-    //Serial.println("Delivery Fail :(");
-  }
-}
+void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {}
 
 // 收到消息的回调函数
 void OnDataRecv(const uint8_t * mac, const uint8_t *incomingData, int len) {
-  for(int i=0;i<2;i++)receivedCursors[i+2]=receivedCursors[i];
-  memcpy(&receivedCursors, incomingData, 8);
-  syncing=1;
+  if(calibrated){
+    for(int i=0;i<2;i++)receivedCursors[i+2]=receivedCursors[i];
+    memcpy(&receivedCursors, incomingData, 8);
+    syncing=1;
+  }
+  
 }
 
 void setup() {
@@ -138,6 +132,8 @@ void setup() {
                     &Task1,      /* Task handle to keep track of created task */
                     1);          /* pin task to core 1 */
   delay(500); 
+  Serial.print("LocalMacAddress:");
+  Serial.println(WiFi.macAddress());
 }
 
 void Task0code(void * pvParameters){
@@ -155,9 +151,9 @@ void Task0code(void * pvParameters){
   int relCount=2;
   for(;;){
     vTaskDelay(1);
-    if(ts.tirqTouched()){
+    if(ts.tirqTouched()||ts.touched()){
       relCount=0;
-      while(ts.touched()){
+      while((ts.tirqTouched()||ts.touched())&&!syncing){
         relCount=0;
         updateLine();
         if(lineCursors[2]!=0||lineCursors[3]!=0){
@@ -173,12 +169,6 @@ void Task0code(void * pvParameters){
         relCount++;
       }
     }
-    if(!digitalRead(BUTTON)&&!pressed){
-      int clearScreen[2]={0,-1};
-      esp_now_send(broadcastAddress, (uint8_t *) &clearScreen, 8);
-      tft.fillScreen(TFT_BLACK);
-      pressed=1;
-    }else pressed=0;
   }
 }
 
@@ -210,14 +200,22 @@ void Task1code(void * pvParameters){
 
   for(;;){
     vTaskDelay(1);
-    if(syncing&&calibrated){
-      /*Serial.printf("RecX1:%d\n",receivedCursors[0]);
-      Serial.printf("RecY1:%d\n",receivedCursors[1]);
-      Serial.printf("RecX2:%d\n",receivedCursors[2]);
-      Serial.printf("RecY2:%d\n",receivedCursors[3]);*/
-      if(receivedCursors[0]>=0&&receivedCursors[1]>=0&&receivedCursors[2]>=0&&receivedCursors[3]>=0)tft.drawWideLine(receivedCursors[0],receivedCursors[1],receivedCursors[2],receivedCursors[3],2,TFT_WHITE,TFT_WHITE);
-      else if(receivedCursors[1]==-1)tft.fillScreen(TFT_BLACK);
-      syncing=0;
+    if(calibrated){
+      while(syncing){
+        /*Serial.printf("RecX1:%d\n",receivedCursors[0]);
+        Serial.printf("RecY1:%d\n",receivedCursors[1]);
+        Serial.printf("RecX2:%d\n",receivedCursors[2]);
+        Serial.printf("RecY2:%d\n",receivedCursors[3]);*/
+        if(receivedCursors[0]>=0&&receivedCursors[1]>=0&&receivedCursors[2]>=0&&receivedCursors[3]>=0)tft.drawWideLine(receivedCursors[0],receivedCursors[1],receivedCursors[2],receivedCursors[3],2,TFT_WHITE,TFT_WHITE);
+        else if(receivedCursors[1]==-1)tft.fillScreen(TFT_BLACK);
+        syncing=0;
+      }
+      if(!digitalRead(BUTTON)&&!pressed){
+        int clearScreen[2]={0,-1};
+        esp_now_send(broadcastAddress, (uint8_t *) &clearScreen, 8);
+        tft.fillScreen(TFT_BLACK);
+        pressed=1;
+      }else pressed=0;
     }
   }
 }
